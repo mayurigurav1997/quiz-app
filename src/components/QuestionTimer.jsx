@@ -5,21 +5,24 @@ const QuestionTimer = ({ timeout, onTimeout }) => {
 
     useEffect(() => {
         const timer = setTimeout(() => {
+            console.log("timeout set")
             onTimeout()
         }, timeout)
 
         return () => {
+            console.log("removed timeout")
             clearTimeout(timer)
         }
-
     }, [timeout, onTimeout])
 
     useEffect(() => {
         const timerId = setInterval(() => {
+            console.log("timeinterval set")
             setRemainingTime(prevRemainingTime => prevRemainingTime - 100)
         }, 100)
 
         return () => {
+            console.log("removed timeinterval")
             clearInterval(timerId)
         }
     }, [])
