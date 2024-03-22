@@ -1,10 +1,12 @@
 import React from 'react'
+import logoImg from "../assets/quiz-logo.png"
 
 const Header = () => {
     return (
-        <div>
-
-        </div>
+        <header>
+            <img src={logoImg} alt="Quiz Logo" />
+            <h1>React Quiz</h1>
+        </header>
     )
 }
 
