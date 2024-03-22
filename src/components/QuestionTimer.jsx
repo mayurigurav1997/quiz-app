@@ -1,40 +1,34 @@
-import React, { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 
-const QuestionTimer = ({ timeout, onTimeout, mode }) => {
+export default function QuestionTimer({ timeout, onTimeout, mode }) {
   const [remainingTime, setRemainingTime] = useState(timeout);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      console.log("timeout set");
-      onTimeout();
-    }, timeout);
+    console.log("SETTING TIMEOUT");
+    const timer = setTimeout(onTimeout, timeout);
 
     return () => {
-      console.log("removed timeout");
       clearTimeout(timer);
     };
   }, [timeout, onTimeout]);
 
   useEffect(() => {
-    const timerId = setInterval(() => {
-      console.log("timeinterval set");
+    console.log("SETTING INTERVAL");
+    const interval = setInterval(() => {
       setRemainingTime((prevRemainingTime) => prevRemainingTime - 100);
     }, 100);
 
     return () => {
-      console.log("removed timeinterval");
-      clearInterval(timerId);
+      clearInterval(interval);
     };
   }, []);
 
   return (
     <progress
-      id="qusetion-time"
-      value={remainingTime}
+      id="question-time"
       max={timeout}
-      className="mode"
+      value={remainingTime}
+      className={mode}
     />
   );
-};
-
-export default QuestionTimer;
+}

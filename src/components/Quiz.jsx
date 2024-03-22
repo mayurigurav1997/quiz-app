@@ -1,23 +1,14 @@
-import React, { useCallback, useState } from "react";
-import QUESTIONS from "../questions";
-import quizCompleteImg from "../assets/quiz-complete.png";
+import { useState, useCallback } from "react";
 
-import Question from "./Question";
+import QUESTIONS from "../questions.js";
+import Question from "./Question.jsx";
+import Summary from "./Summary.jsx";
 
-const Quiz = () => {
+export default function Quiz() {
   const [userAnswers, setUserAnswers] = useState([]);
-  //derive the state
-  const activeQuestionIndex = userAnswers.length;
 
+  const activeQuestionIndex = userAnswers.length;
   const quizIsComplete = activeQuestionIndex === QUESTIONS.length;
-  if (quizIsComplete) {
-    return (
-      <div id="summary">
-        <img src={quizCompleteImg} alt="Trophy Icon" />
-        <h2>Quiz Completed!</h2>
-      </div>
-    );
-  }
 
   const handleSelectAnswer = useCallback(function handleSelectAnswer(
     selectedAnswer
@@ -32,6 +23,11 @@ const Quiz = () => {
     () => handleSelectAnswer(null),
     [handleSelectAnswer]
   );
+
+  if (quizIsComplete) {
+    return <Summary userAnswers={userAnswers} />;
+  }
+
   return (
     <div id="quiz">
       <Question
@@ -42,6 +38,4 @@ const Quiz = () => {
       />
     </div>
   );
-};
-
-export default Quiz;
+}
